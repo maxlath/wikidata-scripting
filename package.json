@@ -1,0 +1,14 @@
+{
+  "name": "wikidata-scripting",
+  "version": "1.0.0",
+  "description": "examples of scripts to edit wikidata",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "maxlath",
+  "license": "MIT",
+  "dependencies": {
+    "wikidata-cli": "^5.4.0"
+  }
+}
