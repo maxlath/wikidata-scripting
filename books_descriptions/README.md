@@ -5,17 +5,29 @@ In this scripting session, we generate a task queue to translate the numerous Du
 ## How To
 Assumes that you already have [wikidata-cli](https://github.com/maxlath/wikidata-cli) `>= v5.3.0` and [jsondepth](https://github.com/maxlath/jsondepth) installed globally
 
-**1 - request the data from the missing descriptions**
+### 1 - request the data from the missing descriptions
 ```sh
 wd sparql get_missing_description_request.js fr > missing_fr_description.json
 ```
+See [wikidata-cli `wd sparql` command documentation](https://github.com/maxlath/wikidata-cli/blob/master/docs/read_operations.md#wd-sparql) for explainations.
 
-**2 - generate the command files**
+### 2 - generate the command files
 ```sh
 ./generate_add_missing_description_cmd.js fr > ./fr_task_queue
 ```
+The generated commands look like:
+```sh
+wd data Q74263 | jd descriptions.fr || wd set-description Q74263 fr "Livre de Isaac Newton"
+```
+Some explaination of what it does:
 
-**3 - run the generated command file**
+- `wd data Q74263`: fetch Q74263 data from the Wikidata API
+- `|`: pipe the result to the next command
+- `jd descriptions.fr`: parses the returned data to get the French description
+- `||`: that's the `OR` operator: in the case the previous command didn't returned anything (there is no French description), execute the next command
+- `wd set-description Q74263 fr "Livre de Isaac Newton"`: set Q74263 French description to "Livre de Isaac Newton"
+
+### 3 - run the generated command file
 ```sh
 ./fr_task_queue
 ```
