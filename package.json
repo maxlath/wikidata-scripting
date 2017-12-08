@@ -9,6 +9,7 @@
   "author": "maxlath",
   "license": "MIT",
   "dependencies": {
+    "jsondepth": "^1.7.0",
     "wikidata-cli": "^5.4.0"
   }
 }

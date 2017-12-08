@@ -3,7 +3,7 @@
 In this scripting session, we generate a task queue to translate the numerous Dutch descriptions on the pattern "boek van [author name]" in other languages.
 
 ## How To
-Assumes that you already have [wikidata-cli](https://github.com/maxlath/wikidata-cli) `>= v5.3.0` installed
+Assumes that you already have [wikidata-cli](https://github.com/maxlath/wikidata-cli) `>= v5.3.0` and [jsondepth](https://github.com/maxlath/jsondepth) installed globally
 
 **1 - request the data from the missing descriptions**
 ```sh
