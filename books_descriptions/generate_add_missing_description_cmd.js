@@ -3,6 +3,7 @@ const fs = require('fs')
 
 const descriptionBase = {
   en: 'book by',
+  es: 'libro de',
   fr: 'livre de',
   de: 'Buch von'
 }
