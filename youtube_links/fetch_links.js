@@ -12,10 +12,14 @@ const parseChannelLinks = html => {
 
   return linksHtml
   .map(extractHref)
+  .filter(href => href != null)
   .reduce(indexHrefByProperty, {})
 }
 
-const extractHref = linkHtml => linkHtml.match(/href="([^"]+)"/)[1]
+const extractHref = linkHtml => {
+  const match = linkHtml.match(/href="([^"]+)"/)
+  if (match != null) return match[1]
+}
 
 const indexHrefByProperty = (index, href) => {
   // Unfortunately, links titles aren't stable, so we can only rely on the domains themselves
