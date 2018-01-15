@@ -6,17 +6,20 @@ const buildNextCommand = () => {
   const { item: id, youtube: channelId } = list.shift()
 
   return fetchLink(channelId)
-  .then(generateCommandsFromLinks(id))
+  .then(generateCommandsFromLinks(id, channelId))
   .then(buildNextCommand)
 }
 
-const generateCommandsFromLinks = id => links => {
+const generateCommandsFromLinks = (id, channelId) => links => {
   if (!links) return
 
   console.log(`entity=$(wd data ${id} --props claims)`)
   Object.keys(links).forEach(property => {
     const value = links[property]
-    console.log(`echo $entity | jd ${property} || wd add-claim ${id} ${property} ${value}`)
+    console.log(`echo $entity | jd claims.${property} || {
+      claim_guid=$(wd add-claim ${id} ${property} ${value} | jd claim.id)
+      wd add-reference $claim_guid P854 "https://www.youtube.com/channel/${channelId}"
+    }`)
   })
   console.log('')
 }
