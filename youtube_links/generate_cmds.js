@@ -13,8 +13,11 @@ const buildNextCommand = () => {
 const generateCommandsFromLinks = (id, channelId) => links => {
   if (!links) return
 
+  const properties = Object.keys(links)
+  if (properties.length === 0) return
+
   console.log(`entity=$(wd data ${id} --props claims)`)
-  Object.keys(links).forEach(property => {
+  properties.forEach(property => {
     const value = links[property]
     console.log(`echo $entity | jd claims.${property} || {
       claim_guid=$(wd add-claim ${id} ${property} ${value} | jd claim.id)
