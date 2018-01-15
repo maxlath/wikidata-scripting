@@ -1,0 +1,3 @@
+SELECT ?item ?youtube WHERE {
+  ?item wdt:P2397 ?youtube .
+}
