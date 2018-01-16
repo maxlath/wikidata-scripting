@@ -26,7 +26,7 @@ const indexHrefByProperty = (index, href) => {
   if (href.match('facebook.com')) index.P2013 = parseId(href)
   else if (href.match('twitter.com')) index.P2002 = parseId(href)
   else if (href.match('pinterest.com')) index.P3836 = parseId(href)
-  else if (href.match('plus.google.com')) index.P3836 = parseId(href.replace(/\/posts\/?$/, ''))
+  else if (href.match('plus.google.com')) index.P2847 = parseId(href.replace(/\/posts\/?$/, ''))
   else if (href.match('instagram.com')) index.P2003 = parseId(href)
   else if (href.match('tumblr.com')) index.P3943 = parseTumblrId(href)
   return index
