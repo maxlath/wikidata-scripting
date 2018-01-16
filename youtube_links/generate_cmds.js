@@ -3,7 +3,10 @@ const list = require('./item_with_youtube_channel.json')
 const fetchLink = require('./fetch_links')
 
 const buildNextCommand = () => {
-  const { item: id, youtube: channelId } = list.shift()
+  const next = list.shift()
+  if (next == null) return `echo done`
+
+  const { item: id, youtube: channelId } = next
 
   return fetchLink(channelId)
   .then(generateCommandsFromLinks(id, channelId))
