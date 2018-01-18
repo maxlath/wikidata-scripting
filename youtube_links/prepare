@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-wd sparql ./item_with_youtube_channel.rq > item_with_youtube_channel.json
-./generate_cmds.js > ./run
