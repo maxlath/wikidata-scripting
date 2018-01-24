@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+const wikidataPseudo = require('./wikidata_writers_pseudo_cleaned.json')
+
+console.log(`
+#!/usr/bin/env sh
+alias no_empty_line="grep -v -e '^$'"
+`)
+
+wikidataPseudo.forEach(result => {
+  const { wikidata: id } = result
+  console.log(`echo "${id}"`)
+
+  // Add a pseudonyme claim (P742) only if we have a single value
+  if (result.formattedPseudo.length === 1) {
+    const value = result.formattedPseudo[0]
+    console.log(`wd data ${id} --props claims | jd claims.P742 || {
+      claim_guid=$(wd add-claim ${id} P742 "${value}" | jd claim.id)
+      wd add-reference $claim_guid P143 Q465
+    }`)
+  }
+
+  console.log(`label=$(wd label --lang en ${id})`)
+  console.log('aliases=')
+
+  // Add the pseudo to the list of alias if it doesn't match the label
+  result.formattedPseudo.forEach(pseudo => {
+    console.log(`[ "${pseudo}" != "$label" ] && aliases="$aliases|${pseudo}"`)
+  })
+
+  // Add the aliases only if there are any
+  console.log(`echo $aliases | no_empty_line && wd add-alias ${id} en "$aliases"`)
+
+  console.log('\n')
+})

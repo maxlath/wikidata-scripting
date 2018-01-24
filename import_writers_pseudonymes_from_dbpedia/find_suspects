@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+require('./wikidata_writers_pseudo_cleaned.json')
+.filter(result => result.formattedPseudo.length > 1)
+.forEach(result => {
+  console.log(`
+${result.pseudo}
+${result.formattedPseudo.join(' | ')}
+`)
+})

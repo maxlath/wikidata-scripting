@@ -1,0 +1,9 @@
+SELECT ?wikidata ?pseudo WHERE {
+  ?page dbo:pseudonym ?pseudo .
+  ?page owl:sameAs ?sameAs .
+  # ?page foaf:isPrimaryTopicOf ?wikipedia .
+  # Keep only writers
+  ?page dbp:wikiPageUsesTemplate dbt:Infobox_writer .
+  FILTER(STRSTARTS(STR(?sameAs), "http://wikidata.org/entity/"))
+  BIND(REPLACE(STR(?sameAs), "http://wikidata.org/entity/", "") AS ?wikidata)
+}

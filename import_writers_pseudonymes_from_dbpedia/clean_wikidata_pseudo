@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+const wikidataPseudo = require('./wikidata_writers_pseudo.json')
+
+const formatPseudo = pseudo => {
+  // Ignore pseudonymes strings mixing , and ; as it's too hard to get parse right
+  if (pseudo.match(',') && pseudo.match(';')) return []
+
+  return cleanString(pseudo)
+  .split(/(,|;)/g)
+  .map(str => {
+    // Ignore pseudonymes with parenthesis as it's hard to know what should
+    // be considered as a valid part of the pseudonyme
+    if (str.match(/\(|\)/)) return ''
+    if (str.match(/\s(&|and|also|see|but|plus|more)\s/)) return ''
+    // Discard strings containing an 'and' at the middle of a name
+    // as there are cases of bad DBpedia parsing concataining words
+    // separated by a 'and'
+    if (wordCount(str) > 3 && str.match(/and/)) return ''
+    return cleanString(str)
+  })
+  .filter(str => /^[\w.\s]+$/.test(str))
+}
+
+const wordCount = str => str.split(' ').length
+
+const cleanString = str => {
+  // Discard any pseudo containing numbers as it might be
+  // a reference badly parsed by DBpedia
+  if (str.match(/\d+/)) return ''
+
+  return str
+  .trim()
+  .replace(/\s(and|also|see|plus|more|but|etc|among|others|partly|a.k.a|aka).*/, '')
+  .replace(/(,|;|\.)$/, '')
+  .trim()
+}
+
+const cleanedWikidataPseudo = wikidataPseudo
+  .map(result => {
+    result.formattedPseudo = formatPseudo(result.pseudo)
+    return result
+  })
+  .filter(result => result.formattedPseudo.length > 0)
+
+console.log(JSON.stringify(cleanedWikidataPseudo, null, 2))
