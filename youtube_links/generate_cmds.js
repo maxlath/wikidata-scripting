@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const list = require('./item_with_youtube_channel.json')
+const list = require('./items_with_youtube_channel.json')
 const fetchLink = require('./fetch_links')
 
 console.log('#!/usr/bin/env sh')

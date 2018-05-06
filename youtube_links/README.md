@@ -7,7 +7,7 @@ Assumes that you already have [wikidata-cli](https://github.com/maxlath/wikidata
 
 ##### 1 - find all the items with a known Youtube channel
 ```sh
-wd sparql ./item_with_youtube_channel.rq > item_with_youtube_channel.json
+wd sparql ./items_with_youtube_channel.rq > items_with_youtube_channel.json
 ```
 
 ##### 2 - extract external ids from Youtube channel pages and prepare wikidata-cli commmands
