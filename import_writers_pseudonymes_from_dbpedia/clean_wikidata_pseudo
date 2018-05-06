@@ -11,7 +11,7 @@ const formatPseudo = pseudo => {
     // Ignore pseudonymes with parenthesis as it's hard to know what should
     // be considered as a valid part of the pseudonyme
     if (str.match(/\(|\)/)) return ''
-    if (str.match(/\s(&|and|also|see|but|plus|more)\s/)) return ''
+    if (str.match(/\s(&|none|and|also|see|but|plus|more)\s/i)) return ''
     // Discard strings containing an 'and' at the middle of a name
     // as there are cases of bad DBpedia parsing concataining words
     // separated by a 'and'

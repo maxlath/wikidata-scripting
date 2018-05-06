@@ -2,8 +2,7 @@
 
 const wikidataPseudo = require('./wikidata_writers_pseudo_cleaned.json')
 
-console.log(`
-#!/usr/bin/env sh
+console.log(`#!/usr/bin/env sh
 alias no_empty_line="grep -v -e '^$'"
 `)
 
