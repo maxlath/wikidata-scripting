@@ -1,0 +1,61 @@
+#!/usr/bin/env node
+const breq = require('bluereq')
+// const _ = require('lodash')
+const fs = require('fs')
+const writeFile = require('util').promisify(fs.writeFile)
+
+const list = require('./subreddit_claims.json')
+var index = 0
+// const todo = _.cloneDeep(list)
+
+fetchNext = () => {
+  const entry = list[index]
+  index += 1
+  if (!entry) return console.log('done')
+
+  const { subreddit, subscribers } = entry
+  if (subscribers) return fetchNext()
+
+  getSubbredditData(subreddit)
+  .then(data => {
+    entry.subscribers = data.subscribers
+    entry.lang = data.lang
+    console.log(entry)
+    return save()
+  })
+  .catch(err => {
+    if (err.statusCode === 403 && err.body.reason === 'private') {
+      entry.private = true
+      console.log(entry)
+      return
+    }
+    if (err.statusCode === 404 && err.body.reason === 'banned') {
+      entry.banned = true
+      console.log(entry)
+      return
+    }
+    throw err
+  })
+  .delay(500)
+  .then(fetchNext)
+  .catch(console.error)
+}
+
+const getSubbredditData = subreddit => {
+  return breq.get({
+    url: `https://www.reddit.com/r/${subreddit}/about.json`,
+    headers: {
+      // A User-Agent is required
+      'User-Agent': 'wikidata-scripting (https://github.com/maxlath/wikidata-scripting)'
+    }
+  })
+  .get('body')
+  .get('data')
+}
+
+const save = () => {
+  const json = JSON.stringify(list, null, 2)
+  return writeFile('./subreddit_claims.json', json)
+}
+
+fetchNext()

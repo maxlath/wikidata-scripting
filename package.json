@@ -11,6 +11,7 @@
   "dependencies": {
     "bluereq": "^2.1.5",
     "jsondepth": "^1.7.0",
-    "wikidata-cli": "^5.4.0"
+    "wikidata-cli": "^5.4.0",
+    "wikidata-lang": "^2.0.6"
   }
 }

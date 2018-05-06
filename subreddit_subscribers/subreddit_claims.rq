@@ -1,0 +1,5 @@
+SELECT ?subreddit ?statement_hash WHERE {
+  ?item p:P3984 ?statement .
+  ?statement ps:P3984 ?subreddit .
+  BIND(REPLACE(STR(?statement), "http://www.wikidata.org/entity/statement/", "") AS ?statement_hash)
+}
