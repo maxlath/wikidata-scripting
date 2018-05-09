@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+const addData = require('./add_data')
+const breq = require('bluereq')
+const cheerio = require('cheerio')
+const { red } = require('chalk')
+
+const getAndAddData = entry => {
+  const { twitter } = entry
+  return getPage(twitter)
+  .then(html => {
+    const $ = cheerio.load(html)
+    var count = $(`[href="/${twitter}/followers"]`).text()
+      .replace('Followers', '')
+      .trim()
+      .replace(/,/g, '')
+
+    if (/^\d+$/.test(count)) {
+      console.log(twitter, count)
+      entry.subscribers = parseInt(count)
+    } else {
+      entry.couldntRead = true
+      console.error(red('couldnt read'), twitter, count)
+    }
+  })
+}
+
+const getPage = twitter => {
+  return breq.get(`https://mobile.twitter.com/${twitter}`)
+  .get('body')
+}
+
+addData({ label: 'twitter', getAndAddData })

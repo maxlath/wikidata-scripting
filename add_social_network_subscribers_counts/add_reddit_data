@@ -1,27 +1,14 @@
 #!/usr/bin/env node
+const addData = require('./add_data')
 const breq = require('bluereq')
-// const _ = require('lodash')
-const fs = require('fs')
-const writeFile = require('util').promisify(fs.writeFile)
 
-const list = require('./subreddit_claims.json')
-var index = 0
-// const todo = _.cloneDeep(list)
-
-fetchNext = () => {
-  const entry = list[index]
-  index += 1
-  if (!entry) return console.log('done')
-
-  const { subreddit, subscribers } = entry
-  if (subscribers) return fetchNext()
-
-  getSubbredditData(subreddit)
+const getAndAddData = entry => {
+  const { subreddit } = entry
+  return getSubbredditData(subreddit)
   .then(data => {
     entry.subscribers = data.subscribers
     entry.lang = data.lang
     console.log(entry)
-    return save()
   })
   .catch(err => {
     if (err.statusCode === 403 && err.body.reason === 'private') {
@@ -36,9 +23,6 @@ fetchNext = () => {
     }
     throw err
   })
-  .delay(500)
-  .then(fetchNext)
-  .catch(console.error)
 }
 
 const getSubbredditData = subreddit => {
@@ -53,9 +37,4 @@ const getSubbredditData = subreddit => {
   .get('data')
 }
 
-const save = () => {
-  const json = JSON.stringify(list, null, 2)
-  return writeFile('./subreddit_claims.json', json)
-}
-
-fetchNext()
+addData({ label: 'reddit', getAndAddData })

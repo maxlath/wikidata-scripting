@@ -10,6 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "bluereq": "^2.1.5",
+    "chalk": "^2.4.1",
+    "cheerio": "^1.0.0-rc.2",
     "jsondepth": "^1.7.0",
     "wikidata-cli": "^5.4.0",
     "wikidata-lang": "^2.0.6"

@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+const wdLang = require('wikidata-lang')
+const { addScriptHeader, fixStatementId, buildCommand, addDone } = require('../common')
+
+const list = require('./subreddit_statements.json')
+  .map(entry => {
+    entry.statementId = fixStatementId(entry.statement_id)
+    return entry
+  })
+
+addScriptHeader()
+
+const buildCommands = entry => {
+  const { subreddit, statementId, subscribers, lang } = entry
+  if (subscribers || lang) {
+    // Padding entries commands
+    console.log()
+    console.log(`echo 'subreddit: ${subreddit}'`)
+  }
+
+  if (subscribers) {
+    buildCommand('add-qualifier', statementId, 'P3744', subscribers)
+    buildCommand('add-reference', statementId, 'P813', '2018-05-06')
+  }
+
+  if (lang && wdLang.byCode[lang]) {
+    const langWdId = wdLang.byCode[lang].wd
+    buildCommand('add-qualifier', statementId, 'P407', langWdId)
+  }
+}
+
+list.forEach(buildCommands)
+addDone()
