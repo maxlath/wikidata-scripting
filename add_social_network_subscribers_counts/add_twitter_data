@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+Promise = require('bluebird')
 const addData = require('./add_data')
 const breq = require('bluereq')
 const cheerio = require('cheerio')
-const { red } = require('chalk')
+const { red, yellow } = require('chalk')
 
 const getAndAddData = entry => {
   const { twitter } = entry
@@ -22,11 +23,39 @@ const getAndAddData = entry => {
       console.error(red('couldnt read'), twitter, count)
     }
   })
+  .catch(err => {
+    if (err.statusCode === 429 || err.statusCode >= 500) {
+      console.log(yellow('too many requests: waiting...'), 'status code:', err.statusCode)
+
+      countDown()
+
+      return Promise.resolve()
+      .delay(60*1000)
+      .then(() => getAndAddData(entry))
+    }
+    if (err.statusCode === 404) {
+      entry.notFound = true
+      console.log(entry)
+      return
+    }
+    throw err
+  })
 }
 
 const getPage = twitter => {
   return breq.get(`https://mobile.twitter.com/${twitter}`)
   .get('body')
+}
+
+const countDown = () => {
+  var remaingSeconds = 60
+  const logTime = () => {
+    remaingSeconds -= 1
+    const time = remaingSeconds.toString().padStart(2, ' ') + 's'
+    process.stdout.write(time + '\r')
+    if (remaingSeconds > 1) setTimeout(logTime, 1000)
+  }
+  setTimeout(logTime, 1000)
 }
 
 addData({ label: 'twitter', getAndAddData })

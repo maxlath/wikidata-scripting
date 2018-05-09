@@ -1,32 +1,55 @@
-const breq = require('bluereq')
+Promise = require('bluebird')
 const fs = require('fs')
 const writeFile = require('util').promisify(fs.writeFile)
+const { green } = require('chalk')
 
 var index = 0
 
 module.exports = params => {
-  const { label, getAndAddData, mainDataAttribute } = params
+  const { label, getAndAddData } = params
   const listPath = `./${label}_statements.json`
   const list = require(listPath)
 
-  fetchNext = () => {
+  const fetchNext = () => {
     const entry = list[index]
     index += 1
-    if (!entry) return console.log('done')
+    if (!entry) {
+      return forceSave()
+      .then(() => console.log('done'))
+    }
 
-    if (entry.subscribers || entry.couldntRead) return fetchNext()
+    if (entry.subscribers || entry.couldntRead || entry.notFound) return fetchNext()
 
-    getAndAddData(entry)
+    return getAndAddData(entry)
     .then(save)
     .delay(500)
     .then(fetchNext)
-    .catch(console.error)
   }
 
-  const save = () => {
+  const save = always => {
     const json = JSON.stringify(list, null, 2)
+    const reallySave = always || oneTimeOnTen()
+    if (!reallySave) return
+    console.log(green('saving'))
     return writeFile(listPath, json)
   }
 
+  const forceSave = save.bind(null, true)
+
+  const saveBeforeExit = () => {
+    forceSave()
+    .then(() => {
+      // Let fs operations finish
+      setTimeout(() => { process.exit(0) }, 2000)
+    })
+  }
+
   fetchNext()
+  .catch(console.error)
+  .finally(forceSave)
+
+  process.on('exit', saveBeforeExit)
+  process.on('SIGINT', saveBeforeExit)
 }
+
+const oneTimeOnTen = () => Math.random() < 0.1

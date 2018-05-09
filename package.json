@@ -9,6 +9,7 @@
   "author": "maxlath",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "bluereq": "^2.1.5",
     "chalk": "^2.4.1",
     "cheerio": "^1.0.0-rc.2",
