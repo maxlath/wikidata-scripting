@@ -10,11 +10,11 @@ wd sparql ./channels_statements.js subreddit P3984 > subreddit_statements.json
 # 2 - add those subreddits data
 ./add_reddit_data
 # 3 - prepare wikidata-cli commmands
-./generate_reddit_cmds > ./run_reddit
+./generate_cmds subreddit_statements.json subreddit '2018-05-06' > ./run_reddit
 # 4 - run the wikidata-cli commmands (doing this step separately allows to check that the generated commands look correct).
 # Make the script executable
-chmod +x ./run
-./run
+chmod +x ./run_reddit
+./run_reddit
 ```
 
 ### Twitter
@@ -24,9 +24,9 @@ wd sparql ./channels_statements.js twitter P2002 > twitter_statements.json
 # 2 - add those subreddits data
 ./add_twitter_data
 # 3 - prepare wikidata-cli commmands
-./generate_twitter_cmds > ./run_twitter
+./generate_cmds twitter_statements.json twitter '2018-05-10' > ./run_twitter
 # 4 - run the wikidata-cli commmands (doing this step separately allows to check that the generated commands look correct).
 # Make the script executable
-chmod +x ./run
-./run
+chmod +x ./run_twitter
+./run_twitter
 ```

@@ -12,7 +12,7 @@ module.exports = {
   // From the SPARQL results format
   fixStatementId: statementId => {
     var [ qid, ...rest ] = statementId.split(/-/)
-    qid = rest.join('-')
+    rest = rest.join('-')
     return `${qid}$${rest}`
   },
 

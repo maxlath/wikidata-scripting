@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
 const wdLang = require('wikidata-lang')
+const path = require('path')
 const { addScriptHeader, fixStatementId, buildCommand, addDone } = require('../common')
+const [ statementsPath, channelName, date ] = process.argv.slice(2)
 
-const list = require('./subreddit_statements.json')
+const list = require(path.resolve(statementsPath))
   .map(entry => {
     entry.statementId = fixStatementId(entry.statement_id)
     return entry
@@ -12,16 +14,17 @@ const list = require('./subreddit_statements.json')
 addScriptHeader()
 
 const buildCommands = entry => {
-  const { subreddit, statementId, subscribers, lang } = entry
+  const { statementId, subscribers, lang } = entry
+  const channel = entry[channelName]
   if (subscribers || lang) {
     // Padding entries commands
     console.log()
-    console.log(`echo 'subreddit: ${subreddit}'`)
+    console.log(`echo '${channelName}: ${channel}'`)
   }
 
   if (subscribers) {
     buildCommand('add-qualifier', statementId, 'P3744', subscribers)
-    buildCommand('add-reference', statementId, 'P813', '2018-05-06')
+    buildCommand('add-reference', statementId, 'P813', date)
   }
 
   if (lang && wdLang.byCode[lang]) {
