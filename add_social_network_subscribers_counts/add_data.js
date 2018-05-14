@@ -36,20 +36,12 @@ module.exports = params => {
 
   const forceSave = save.bind(null, true)
 
-  const saveBeforeExit = () => {
-    forceSave()
-    .then(() => {
-      // Let fs operations finish
-      setTimeout(() => { process.exit(0) }, 2000)
-    })
-  }
-
   fetchNext()
   .catch(console.error)
   .finally(forceSave)
 
-  process.on('exit', saveBeforeExit)
-  process.on('SIGINT', saveBeforeExit)
+  process.on('exit', forceSave)
+  process.on('SIGINT', forceSave)
 }
 
 const oneTimeOnTen = () => Math.random() < 0.1
