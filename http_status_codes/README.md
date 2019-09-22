@@ -1,3 +1,18 @@
+# Create missing HTTP Status Codes items on Wikidata
+
+## Dependency
+Uses [wikibase-cli](https://github.com/maxlath/wikibase-cli) `>= v8`
+
+## How-to
+Uses the [`wb create-entity` templating feature](https://github.com/maxlath/wikibase-cli/blob/master/docs/write_operations.md#wd-create-entity) to create several items from the `./http_status_code.js` template
+```sh
+# Assumes that your configration already set instance=https://www.wikidata.org
+wb create-entity ./http_status_code.js 100 'Continue' '6.2.1'
+```
+
+See `./run.sh` for full list of commands
+
+## Results
 Running `./run` created the following items:
 * [HTTP 505 (Q64728505)](https://wikidata.org/wiki/Q64728505)
 * [HTTP 504 (Q64728503)](https://wikidata.org/wiki/Q64728503)
