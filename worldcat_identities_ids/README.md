@@ -4,7 +4,7 @@ Addressing https://www.wikidata.org/w/index.php?title=Topic:Vfnr6v8lfqagpi7g
 
 ## Dependencies
 * NodeJS >= 8
-* [wikibase-cli](https://github.com/maxlath/wikibase-cli) >= 8
+* [wikibase-cli](https://github.com/maxlath/wikibase-cli) >= 9.1.1
 
 ## How to
 
@@ -21,7 +21,7 @@ You could import this data the following way
 to match the needs of the [`wb edit-entity`](https://github.com/maxlath/wikibase-cli/blob/master/docs/write_operations.md#wb-edit-entity) command
 
 ```js
-// ./template.js
+// ./import_template.js
 module.exports = (id, wciId, viafId) => {
   return {
     id: id,
@@ -35,30 +35,20 @@ module.exports = (id, wciId, viafId) => {
 }
 ```
 
-### Generate the commands that will need to be run
+### Generate the commands arguments
 ```sh
-# Stop the commands if one fail, see https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html#The-Set-Builtin
-# and discussion https://github.com/maxlath/wikibase-cli/issues/62#issuecomment-579249500
-echo 'set -e' > ./commands
-
-# Generate the commands from the data
-cat data.csv | grep -E '^Q' | sed 's/,/ /g' | awk '{print "wd entity-edit ./template.js", $1, $2, $3}' >> ./commands
+cat data.csv | grep -E '^Q' | sed 's/,/ /g' | awk '{print "./import_template.js", $1, $2, $3}' > ./commands_args
 ```
 
-That should generate something like
+That should generate a file with lines looking something like this:
 ```sh
-set -e
-wd entity-edit ./template.js Q5349185 lccn-n83008988 108197827
+./import_template.js Q5349185 lccn-n83008988 108197827
 ```
 
 ### Run the commands
-You could run those commands in the present terminal
 ```sh
-# Make the file an executable
-chmod +x ./commands
-# Run
-./commands > ./commands.logs 2> commands.errors
-# Follow the logs
+wd edit-entity --batch --dry < commands_args > ./commands.logs 2> commands.errors
+# Follow the logs from another terminal
 tail -f ./commands*
 ```
 
