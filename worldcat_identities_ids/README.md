@@ -53,7 +53,7 @@ tail -f ./commands*
 ```
 
 This unfortunately means that you would have to keep that terminal for the whole time this process is running. If that's an issue, a solution could be to run it on a server (or some computer that isn't turned off), and make that process independant of your terminal:
-* either by turning it into a daemon, with something like `aeternum`: `aeternum -o ./commands.logs -e commands.errors -- ./commands`
+* either by turning it into a daemon, with something like [aeternum](https://github.com/AvianFlu/aeternum): `aeternum -o ./commands.logs -e commands.errors -- ./commands`
 * or running it in a `tmux` session
 * you could probably even run it on [Toolforge Grid](https://wikitech.wikimedia.org/wiki/Help:Toolforge/Grid)
 * last resort, you could ask me to run it for you, but you would need to trust me with your OAuth tokens
