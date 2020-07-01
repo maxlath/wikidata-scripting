@@ -5,7 +5,7 @@
   "main": "template.js",
   "dependencies": {
     "node-fetch": "^2.6.0",
-    "wikidata-sdk": "^7.6.1",
+    "wikidata-sdk": "^7.6.2",
     "wtf_wikipedia": "^8.3.0"
   },
   "devDependencies": {},
