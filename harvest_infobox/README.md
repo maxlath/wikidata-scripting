@@ -19,7 +19,7 @@ npm install
 ```
 
 ## Run
-Given a `svwiki` URL as input, `template.js` will use `wtf_wikipedia` to try to find a `namn` and `bild` infobox attributes, and use those to build an edit on the corresponding Wikidata item.
+Given a `svwiki` URL as input, [`template.js`](https://github.com/maxlath/wikidata-scripting/blob/master/harvest_infobox/template.js) will use `wtf_wikipedia` to try to find a `namn` and `bild` infobox attributes, and use those to build an edit on the corresponding Wikidata item.
 
 ```sh
 # Running with --dry flag to see the generated edit without actually modifying Wikidata
