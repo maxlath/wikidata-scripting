@@ -22,9 +22,19 @@ With `./ids` being a file containing one Q id per line, example:
 Q4115189
 Q13406268
 ```
-the following command will return an edit object for each id, unless the corresponding entity already has a P39:Q17277248 claim
+
+### Checking only the mainsnak
+The following command will return an edit object for each id, unless the corresponding entity already has a P39:Q17277248 claim
 ```sh
-cat ids | wd edit-entity template.js --batch --dry --summary 'create missing P39 Q17277248 claims'
+cat ids | wd edit-entity template_a.js --batch --dry --summary 'create missing P39 Q17277248 claims'
 ```
 (Running with --dry flag to see the generated edit without actually modifying Wikidata)
 
+### Checking also the qualifier
+
+The following command will return an edit object for each id, unless the corresponding entity already has a P39:Q17277248 claim with a P2937:Q31013959 qualifier.
+
+```sh
+cat ids | wd edit-entity template_b.js --batch --dry --summary 'create missing P39 Q17277248 claims'
+```
+(Running with --dry flag to see the generated edit without actually modifying Wikidata)
