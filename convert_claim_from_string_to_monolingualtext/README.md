@@ -2,8 +2,8 @@
 
 While wikibase-cli/wikibase-edit allow to [move claims between certain datatypes](https://github.com/maxlath/wikibase-edit/blob/master/docs/how_to.md#move-claims-between-properties-of-different-datatypes), it is not possible to automatically turn a string claim into a monolingualtext property, as the monolingualtext requires additional data, namely a language. A work around is to generate the edits using a combination of:
 
-* [`wb generate-template`](https://github.com/maxlath/wikibase-cli/blob/master/docs/read_operations.md#wd-generate-template)
-* [`ndjson-apply`](https://github.com/maxlath/ndjson-apply)
+* [`wb generate-template` (`wikibase-cli >= 15.5.0`)](https://github.com/maxlath/wikibase-cli/blob/master/docs/read_operations.md#wd-generate-template)
+* [`ndjson-apply >= 1.2.0` ](https://github.com/maxlath/ndjson-apply)
 * [`wd edit-entity`](https://github.com/maxlath/wikibase-edit/blob/master/docs/how_to.md#edit-entity)
 
 ```sh
@@ -15,7 +15,7 @@ Q1440653
 ' > ids
 
 # Get the data for the entities to modify
-cat ids | wd generate-template --props P969 --format json > entities_data.ndjson
+cat ids | wd generate-template --props P969 --format json --no-minimize > entities_data.ndjson
 
 # Apply the desired modification to that data
 cat entities_data.ndjson | ndjson-apply ./move_string_to_monolingualtext.js P969 P6375 und > entities_edits.ndjson

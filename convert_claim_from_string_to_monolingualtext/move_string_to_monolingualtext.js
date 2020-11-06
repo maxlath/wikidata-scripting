@@ -1,6 +1,5 @@
 module.exports = (entity, from, to, lang) => {
-  // If there is only one claim, generate-template will have simplified it to a single object
-  const movedClaims = forceArray(entity.claims[from])
+  const movedClaims = entity.claims[from]
 
   return {
     id: entity.id,
@@ -10,8 +9,6 @@ module.exports = (entity, from, to, lang) => {
     }
   }
 }
-
-const forceArray = obj => obj instanceof Array ? obj : [ obj ]
 
 const removeClaim = function (claim) {
   return {
