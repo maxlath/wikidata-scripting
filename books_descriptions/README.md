@@ -17,13 +17,13 @@ See [wikidata-cli `wd sparql` command documentation](https://github.com/maxlath/
 ```
 The generated commands look like:
 ```sh
-wd data Q74263 | jd descriptions.fr || wd set-description Q74263 fr "Livre de Isaac Newton"
+wd data Q74263 | jq .descriptions.fr || wd set-description Q74263 fr "Livre de Isaac Newton"
 ```
 Some explaination of what it does:
 
 - `wd data Q74263`: fetch Q74263 data from the Wikidata API
 - `|`: pipe the result to the next command
-- `jd descriptions.fr`: parses the returned data to get the French description
+- `jq .descriptions.fr`: parses the returned data to get the French description
 - `||`: that's the `OR` operator: in the case the previous command didn't returned anything (there is no French description), execute the next command
 - `wd set-description Q74263 fr "Livre de Isaac Newton"`: set Q74263 French description to "Livre de Isaac Newton"
 

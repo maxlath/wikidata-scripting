@@ -52,5 +52,5 @@ results.forEach(result => {
     description = modifier[lang](description)
   }
 
-  console.log(`wd data ${result.item} | jd descriptions.${lang} || wd set-description ${result.item} ${lang} "${description}"`)
+  console.log(`wd data ${result.item} | jq .descriptions.${lang} || wd set-description ${result.item} ${lang} "${description}"`)
 })

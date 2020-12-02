@@ -25,7 +25,7 @@ const generateCommandsFromLinks = (id, channelId) => links => {
   properties.forEach(property => {
     const value = links[property]
     console.log(`echo $entity | jd claims.${property} || {
-      claim_guid=$(wd add-claim ${id} ${property} ${value} | jd claim.id)
+      claim_guid=$(wd add-claim ${id} ${property} ${value} | jq .claim.id)
       wd add-reference $claim_guid P854 "https://www.youtube.com/channel/${channelId}"
     }`)
   })

@@ -6,7 +6,7 @@ module.exports = {
 
   buildCommand: (cmd, statementId, property, value) => {
     console.log(`echo '${statementId}' ${property} ${value}`)
-    console.log(`wd ${cmd} '${statementId}' ${property} ${value} | jd success`)
+    console.log(`wd ${cmd} '${statementId}' ${property} ${value} | jq .success`)
   },
 
   // From the SPARQL results format

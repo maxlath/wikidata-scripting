@@ -13,8 +13,8 @@ wikidataPseudo.forEach(result => {
   // Add a pseudonyme claim (P742) only if we have a single value
   if (result.formattedPseudo.length === 1) {
     const value = result.formattedPseudo[0]
-    console.log(`wd data ${id} --props claims | jd claims.P742 || {
-      claim_guid=$(wd add-claim ${id} P742 "${value}" | jd claim.id)
+    console.log(`wd data ${id} --props claims | jq .claims.P742 || {
+      claim_guid=$(wd add-claim ${id} P742 "${value}" | jq .claim.id)
       wd add-reference $claim_guid P143 Q465
     }`)
   }

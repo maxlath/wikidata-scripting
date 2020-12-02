@@ -10,4 +10,4 @@ Should be updated to use the [batch-mode](https://github.com/maxlath/wikibase-cl
 
 ## Tools used
 - [wikibase-cli](https://github.com/maxlath/wikibase-cli)
-- [jsondepth](https://github.com/maxlath/jsondepth)
+- [jq](https://stedolan.github.io/jq/)
