@@ -1,7 +1,6 @@
-Promise = require('bluebird')
-const fs = require('fs')
-const writeFile = require('util').promisify(fs.writeFile)
+const { writeFile } = require('fs').promises
 const { green } = require('chalk')
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 var index = 0
 
@@ -10,20 +9,19 @@ module.exports = params => {
   const listPath = `./${label}_statements.json`
   const list = require(listPath)
 
-  const fetchNext = () => {
+  const fetchNext = async () => {
     const entry = list[index]
     index += 1
     if (!entry) {
-      return forceSave()
-      .then(() => console.log('done'))
+      await forceSave()
+      console.log('done')
     }
 
     if (entry.subscribers || entry.couldntRead || entry.notFound) return fetchNext()
 
-    return getAndAddData(entry)
-    .then(save)
-    .delay(500)
-    .then(fetchNext)
+    await getAndAddData(entry).then(save)
+    await wait(500)
+    return fetchNext()
   }
 
   const save = always => {

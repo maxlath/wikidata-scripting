@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const addData = require('./add_data')
-const breq = require('bluereq')
+const fetch = require('node-fetch')
 
 const getAndAddData = entry => {
   const { subreddit } = entry
@@ -25,16 +25,14 @@ const getAndAddData = entry => {
   })
 }
 
-const getSubbredditData = subreddit => {
-  return breq.get({
-    url: `https://www.reddit.com/r/${subreddit}/about.json`,
-    headers: {
-      // A User-Agent is required
-      'User-Agent': 'wikidata-scripting (https://github.com/maxlath/wikidata-scripting)'
-    }
-  })
-  .get('body')
-  .get('data')
+const headers = {
+  // A User-Agent is required
+  'User-Agent': 'wikidata-scripting (https://github.com/maxlath/wikidata-scripting)'
+}
+
+const getSubbredditData = async subreddit => {
+  const { data } = await fetch(`https://www.reddit.com/r/${subreddit}/about.json`, { headers }).then(res => res.json())
+  return data
 }
 
 addData({ label: 'reddit', getAndAddData })

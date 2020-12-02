@@ -1,8 +1,8 @@
-const breq = require('bluereq')
+const fetch = require('node-fetch')
 
-module.exports = channelId => {
-  return breq.get(`https://www.youtube.com/channel/${channelId}`)
-  .get('body')
+module.exports = async channelId => {
+  return fetch(`https://www.youtube.com/channel/${channelId}`)
+  .then(res => res.json())
   .then(parseChannelLinks)
 }
 
