@@ -19,9 +19,9 @@ chmod +x ./run_reddit
 
 ### Twitter
 ```sh
-# 1 - find all the items with a subreddit
+# 1 - find all the items with a twitter account
 wd sparql ./channels_statements.js twitter P2002 > twitter_statements.json
-# 2 - add those subreddits data
+# 2 - add those twitter accounts data
 ./add_twitter_data
 # 3 - prepare wikidata-cli commmands
 ./generate_cmds twitter_statements.json twitter '2018-05-10' > ./run_twitter
