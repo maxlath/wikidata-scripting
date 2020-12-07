@@ -1,6 +1,9 @@
 # Add book entities descriptions
 
+
 In this scripting session, we generate a task queue to translate the numerous Dutch descriptions on the pattern "boek van [author name]" in other languages.
+
+> :warning: best practices have evolved since this project was initially written, especially, it would now be recommended to use the [batch mode](https://github.com/maxlath/wikibase-cli/blob/master/docs/write_operations.md#batch-mode) instead of many individual `wd` commands. See [this example](https://github.com/maxlath/wikidata-scripting/tree/master/convert_claim_from_string_to_monolingualtext) for a more up-to-date workflow
 
 ## How To
 Assumes that you already have [wikidata-cli](https://github.com/maxlath/wikidata-cli) `>= v5.3.0` and [jsondepth](https://github.com/maxlath/jsondepth) installed globally

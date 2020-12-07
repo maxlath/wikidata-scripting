@@ -1,5 +1,8 @@
 # import writers pseudonymes from DBpedia
 
+> :warning: best practices have evolved since this project was initially written, especially, it would now be recommended to use the [batch mode](https://github.com/maxlath/wikibase-cli/blob/master/docs/write_operations.md#batch-mode) instead of many individual `wd` commands. See [this example](https://github.com/maxlath/wikidata-scripting/tree/master/convert_claim_from_string_to_monolingualtext) for a more up-to-date workflow
+
+
 ```sh
 # Find writers pseudonymes
 wd sparql --sparql-endpoint http://live.dbpedia.org/sparql wikidata_writers_pseudo.rq > wikidata_writers_pseudo.json
