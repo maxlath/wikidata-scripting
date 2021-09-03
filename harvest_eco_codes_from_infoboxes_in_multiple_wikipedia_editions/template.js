@@ -8,11 +8,13 @@ const headers = {
 
 module.exports = async id => {
   const { claims, sitelinks } = await getEntity(id)
+
   if (claims.P9838) {
     console.warn(`${id} already has an ECO code`)
     return
   }
-  const { eco, ref } = await getEco(sitelinks)
+
+  const { eco, wikipedia } = await getEco(sitelinks)
 
   if (!eco) {
     console.warn(`no ECO code found for ${id}`)
@@ -34,7 +36,10 @@ module.exports = async id => {
     claims: {
       P9838: {
         value: formattedEco,
-        references: ref
+        references: {
+          P143: wikipedia,
+          P813: today,
+        }
       }
     }
   }
@@ -62,39 +67,33 @@ const getEco = async sitelinks => {
 }
 
 const getEcoFromEnwikiInfobox = async enwiki => {
-  const url = `https://en.wikipedia.org/wiki/${enwiki.title}`
-  const doc = await wtfwp.fetch(url)
-  const { sections } = doc.json()
-  const eco = getFirstInfoboxValue(sections, 'eco')
-  const ref = {
-    P143: 'Q328',
-    P813: today
+  const sections = await getArticleSections('en', enwiki.title)
+  return {
+    eco: getFirstInfoboxValue(sections, 'eco'),
+    wikipedia: 'Q328'
   }
-  return { eco, ref }
 }
 
 const getEcoFromRuwikiInfobox = async ruwiki => {
-  const url = `https://ru.wikipedia.org/wiki/${ruwiki.title}`
-  const doc = await wtfwp.fetch(url)
-  const { sections } = doc.json()
-  const eco = getFirstTemplateValue(sections, 'eco')
-  const ref = {
-    P143: 'Q206855',
-    P813: today
+  const sections = await getArticleSections('ru', ruwiki.title)
+  return {
+    eco: getFirstTemplateValue(sections, 'eco'),
+    wikipedia: 'Q206855'
   }
-  return { eco, ref }
 }
 
 const getEcoFromDewikiInfobox = async dewiki => {
-  const url = `https://de.wikipedia.org/wiki/${dewiki.title}`
-  const doc = await wtfwp.fetch(url)
-  const { sections } = doc.json()
-  const eco = getFirstInfoboxValue(sections, 'eco')
-  const ref = {
-    P143: 'Q48183',
-    P813: today
+  const sections = await getArticleSections('de', dewiki.title)
+  return {
+    eco: getFirstInfoboxValue(sections, 'eco'),
+    wikipedia: 'Q48183'
   }
-  return { eco, ref }
+}
+
+const getArticleSections = async (lang, title) => {
+  const url = `https://${lang}.wikipedia.org/wiki/${dewiki.title}`
+  const doc = await wtfwp.fetch(url)
+  return doc.json().sections
 }
 
 const getFirstInfoboxValue = (sections, attribute) => {
@@ -118,5 +117,3 @@ const getFirstTemplateValue = (sections, attribute) => {
 }
 
 const today = new Date().toISOString().split('T')[0]
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
