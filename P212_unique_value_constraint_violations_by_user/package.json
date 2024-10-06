@@ -1,0 +1,17 @@
+{
+  "name": "P212_unique_value_constraint_violations_by_user",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "isbn3": "^1.2.2",
+    "lodash.debounce": "^4.0.8"
+  }
+}

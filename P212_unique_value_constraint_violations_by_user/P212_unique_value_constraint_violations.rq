@@ -1,0 +1,13 @@
+# Unique value constraint report for P212: report by value
+SELECT ?value (GROUP_CONCAT(DISTINCT(STRAFTER(STR(?item), "/entity/")); separator=",") AS ?items) WHERE {
+  {
+    SELECT ?value (COUNT(DISTINCT ?item) as ?count) WHERE {
+      ?item wdt:P212 ?value
+    }
+    GROUP BY ?value HAVING (?count > 1)
+    ORDER BY DESC(?count)
+	}
+  ?item wdt:P212 ?value .
+}
+GROUP BY ?value
+ORDER BY DESC(?count)
