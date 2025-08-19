@@ -1,0 +1,4 @@
+SELECT ?statement ?value WHERE {
+  ?item p:P957 ?statement .
+  ?statement ps:P957 ?value .
+}
