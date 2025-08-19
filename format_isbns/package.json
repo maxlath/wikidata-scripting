@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "isbn3": "^1.1.51",
+    "isbn3": "^1.2.13",
     "lodash.uniq": "^4.5.0",
     "ndjson-apply": "^1.4.0"
   }
