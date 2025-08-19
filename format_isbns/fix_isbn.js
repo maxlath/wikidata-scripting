@@ -1,5 +1,4 @@
-import { parse } from 'isbn3'
-import uniq from 'lodash.uniq'
+import { cleanup, commonParse, dehyphenate } from './utils.js'
 
 export function fixIsbn13 ({ statement, value }) {
   if (dehyphenate(cleanup(value)).length === 10) return
@@ -31,34 +30,11 @@ export function moveFromIsbn13ToIsbn10 ({ statement, value }) {
 }
 
 export function moveFromIsbn10ToIsbn13 ({ statement, value }) {
-  if (dehyphenate(cleanup(value)).length !== 13) return
-  const parsed = commonParse(value)
-  if (!parsed?.isbn13h) return
-  const id = statement.split('$')[0]
-  // Include old value for debug
-  return { guid: statement, id, property: 'P212', oldValue: value, newValue: parsed.isbn13h }
-}
-
-function commonParse (value) {
-  value = cleanup(value)
-  const values = value.split(/\s*[^\dX]\s*/)
-  if (values.length > 1) {
-    if (uniq(values).length === 1) value = cleanup(values[0])
-    else return
+  if (dehyphenate(cleanup(value)).length === 13) {
+    const parsed = commonParse(value)
+    if (!parsed?.isbn13h) return
+    const id = statement.split('$')[0]
+    // Include old value for debug
+    return { guid: statement, id, property: 'P212', oldValue: value, newValue: parsed.isbn13h }
   }
-  return parse(value)
-}
-
-function cleanup (value) {
-  return value = value
-    .replace(/ISBN-1(0|3)/, '')
-    .replaceAll('-', '')
-    .replace(/^[^\d]+/, '')
-    .replace('x', 'X')
-    .replace(/[^\dX]+$/, '')
-    .trim()
-}
-
-function dehyphenate (str) {
-  return str.replaceAll('-', '')
 }
