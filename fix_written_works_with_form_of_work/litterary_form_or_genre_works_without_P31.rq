@@ -1,0 +1,33 @@
+SELECT DISTINCT ?work {
+  ?work wdt:P136|wdt:P7937 ?litterary_form_or_genre .
+  {
+    ?litterary_form_or_genre wdt:P31 ?litterary_form_or_genre_type .
+    VALUES (?litterary_form_or_genre_type) {
+      (wd:Q223393)
+      (wd:Q4263830)
+    }
+  } UNION {
+    VALUES (?litterary_form_or_genre) {
+      # Manual list from P31 {{Autofix}} toward P136
+      (wd:Q27801)
+      (wd:Q213051)
+      (wd:Q11163999)
+      (wd:Q20540385)
+      # Manual list from P31 {{Autofix}} toward P7937
+      (wd:Q49084)
+      (wd:Q8261)
+      (wd:Q25379)
+      (wd:Q3328821)
+      (wd:Q1279564)
+      (wd:Q133500522)
+      (wd:Q119318561)
+      (wd:Q5185279)
+      (wd:Q12106333)
+      (wd:Q16324495)
+    }
+  }
+  FILTER NOT EXISTS { ?work wdt:P31 ?type . }
+  FILTER NOT EXISTS { ?work wdt:P279 ?class . }
+  FILTER NOT EXISTS { ?work wdt:P629 ?other_work . }
+  FILTER NOT EXISTS { ?work wdt:P175 ?performer . }
+}
