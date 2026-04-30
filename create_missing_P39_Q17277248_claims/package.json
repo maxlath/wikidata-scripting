@@ -1,7 +1,7 @@
 {
   "name": "create_missing_P39_Q17277248_claims",
   "version": "1.0.0",
-  "description": "Example of how [`wb entity-edit` dynamic templates](https://github.com/maxlath/wikibase-cli/blob/master/docs/write_operations.md#pass-data-as-a-dynamic-js-function-file-returning-an-object) could avoid re-creating existing claims",
+  "description": "Example of how [`wb entity-edit` dynamic templates](https://codeberg.org/maxlath/wikibase-cli/src/branch/main/docs/write_operations.md#pass-data-as-a-dynamic-js-function-file-returning-an-object) could avoid re-creating existing claims",
   "main": "template.js",
   "dependencies": {
     "node-fetch": "^2.6.0",

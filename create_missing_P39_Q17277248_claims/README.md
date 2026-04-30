@@ -1,17 +1,17 @@
 # create missing P39 Q17277248 claims
 
-Example of how [`wb entity-edit` dynamic templates](https://github.com/maxlath/wikibase-cli/blob/master/docs/write_operations.md#pass-data-as-a-dynamic-js-function-file-returning-an-object) could avoid re-creating existing claims.
+Example of how [`wb entity-edit` dynamic templates](https://codeberg.org/maxlath/wikibase-cli/src/branch/main/docs/write_operations.md#pass-data-as-a-dynamic-js-function-file-returning-an-object) could avoid re-creating existing claims.
 
 ## Dependencies
 * [nodejs](https://nodejs.org) `>= v7.6`
-* [wikibase-cli](https://github.com/maxlath/wikibase-cli) `>= v13.1.1`
+* [wikibase-cli](https://codeberg.org/maxlath/wikibase-cli) `>= v13.1.1`
 * other dependencies installed by npm here after:
   * [`wikidata-sdk`](https://github.com/maxlath/wikibase-sdk)
   * [`node-fetch`](https://github.com/bitinn/node-fetch)
 
 ## Install
 ```sh
-git clone https://github.com/maxlath/wikidata-scripting
+git clone https://codeberg.org/maxlath/wikidata-scripting
 cd wikidata-scripting/create_missing_P39_Q17277248_claims
 npm install
 ```

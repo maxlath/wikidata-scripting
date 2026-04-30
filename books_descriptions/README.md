@@ -3,16 +3,16 @@
 
 In this scripting session, we generate a task queue to translate the numerous Dutch descriptions on the pattern "boek van [author name]" in other languages.
 
-> :warning: best practices have evolved since this project was initially written, especially, it would now be recommended to use the [batch mode](https://github.com/maxlath/wikibase-cli/blob/master/docs/write_operations.md#batch-mode) instead of many individual `wd` commands. See [this example](https://github.com/maxlath/wikidata-scripting/tree/master/convert_claim_from_string_to_monolingualtext) for a more up-to-date workflow
+> :warning: best practices have evolved since this project was initially written, especially, it would now be recommended to use the [batch mode](https://codeberg.org/maxlath/wikibase-cli/src/branch/main/docs/write_operations.md#batch-mode) instead of many individual `wd` commands. See [this example](https://codeberg.org/maxlath/wikidata-scripting/src/branch/main/convert_claim_from_string_to_monolingualtext) for a more up-to-date workflow
 
 ## How To
-Assumes that you already have [wikidata-cli](https://github.com/maxlath/wikidata-cli) `>= v5.3.0` and [jsondepth](https://github.com/maxlath/jsondepth) installed globally
+Assumes that you already have [wikidata-cli](https://codeberg.org/maxlath/wikidata-cli) `>= v5.3.0` and [jsondepth](https://github.com/maxlath/jsondepth) installed globally
 
 ### 1 - request the data from the missing descriptions
 ```sh
 wd sparql get_missing_description_request.js fr > missing_fr_description.json
 ```
-See [wikidata-cli `wd sparql` command documentation](https://github.com/maxlath/wikidata-cli/blob/master/docs/read_operations.md#wd-sparql) for explainations.
+See [wikidata-cli `wd sparql` command documentation](https://codeberg.org/maxlath/wikidata-cli/src/branch/main/docs/read_operations.md#wd-sparql) for explainations.
 
 ### 2 - generate the command files
 ```sh

@@ -4,7 +4,7 @@ Addressing https://www.wikidata.org/w/index.php?title=Topic:Vfnr6v8lfqagpi7g
 
 ## Dependencies
 * NodeJS >= 8
-* [wikibase-cli](https://github.com/maxlath/wikibase-cli) >= 9.1.1
+* [wikibase-cli](https://codeberg.org/maxlath/wikibase-cli) >= 9.1.1
 
 ## How to
 
@@ -18,7 +18,7 @@ You could import this data the following way
 
 ### Create a JS entity edit template
 
-to match the needs of the [`wb edit-entity`](https://github.com/maxlath/wikibase-cli/blob/master/docs/write_operations.md#wb-edit-entity) command
+to match the needs of the [`wb edit-entity`](https://codeberg.org/maxlath/wikibase-cli/src/branch/main/docs/write_operations.md#wb-edit-entity) command
 
 ```js
 // ./import_template.js

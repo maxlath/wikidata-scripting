@@ -1,13 +1,13 @@
 # convert claim from string to monolingualtext
 
-While wikibase-cli/wikibase-edit allow to [move claims between certain datatypes](https://github.com/maxlath/wikibase-edit/blob/master/docs/how_to.md#move-claims-between-properties-of-different-datatypes), it is not possible to automatically turn a string claim into a monolingualtext property, as the monolingualtext requires additional data, namely a language. A work around is to generate the edits using a combination of:
+While wikibase-cli/wikibase-edit allow to [move claims between certain datatypes](https://github.com/maxlath/wikibase-edit/src/branch/main/docs/how_to.md#move-claims-between-properties-of-different-datatypes), it is not possible to automatically turn a string claim into a monolingualtext property, as the monolingualtext requires additional data, namely a language. A work around is to generate the edits using a combination of:
 
-* [`wb generate-template` (`wikibase-cli >= 15.5.0`)](https://github.com/maxlath/wikibase-cli/blob/master/docs/read_operations.md#wd-generate-template)
+* [`wb generate-template` (`wikibase-cli >= 15.5.0`)](https://codeberg.org/maxlath/wikibase-cli/src/branch/main/docs/read_operations.md#wd-generate-template)
 * [`ndjson-apply >= 1.2.0` ](https://github.com/maxlath/ndjson-apply)
-* [`wd edit-entity`](https://github.com/maxlath/wikibase-edit/blob/master/docs/how_to.md#edit-entity)
+* [`wd edit-entity`](https://github.com/maxlath/wikibase-edit/src/branch/main/docs/how_to.md#edit-entity)
 
 ```sh
-# Get entities ids somehow (could be from a SPARQL request, see https://github.com/maxlath/wikibase-cli/blob/master/docs/read_operations.md#generate-many-templates)
+# Get entities ids somehow (could be from a SPARQL request, see https://codeberg.org/maxlath/wikibase-cli/src/branch/main/docs/read_operations.md#generate-many-templates)
 echo 'Q27185
 Q55461964
 Q4497733

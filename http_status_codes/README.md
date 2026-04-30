@@ -1,12 +1,12 @@
 # Create missing HTTP Status Codes items on Wikidata
 
-> :warning: best practices have evolved since this project was initially written, especially, it would now be recommended to use the [batch mode](https://github.com/maxlath/wikibase-cli/blob/master/docs/write_operations.md#batch-mode) instead of many individual `wd` commands. See [this example](https://github.com/maxlath/wikidata-scripting/tree/master/convert_claim_from_string_to_monolingualtext) for a more up-to-date workflow
+> :warning: best practices have evolved since this project was initially written, especially, it would now be recommended to use the [batch mode](https://codeberg.org/maxlath/wikibase-cli/src/branch/main/docs/write_operations.md#batch-mode) instead of many individual `wd` commands. See [this example](https://codeberg.org/maxlath/wikidata-scripting/src/branch/main/convert_claim_from_string_to_monolingualtext) for a more up-to-date workflow
 
 ## Dependency
-Uses [wikibase-cli](https://github.com/maxlath/wikibase-cli) `>= v8`
+Uses [wikibase-cli](https://codeberg.org/maxlath/wikibase-cli) `>= v8`
 
 ## How-to
-Uses the [`wb create-entity` templating feature](https://github.com/maxlath/wikibase-cli/blob/master/docs/write_operations.md#wd-create-entity) to create several items from the `./http_status_code.js` template
+Uses the [`wb create-entity` templating feature](https://codeberg.org/maxlath/wikibase-cli/src/branch/main/docs/write_operations.md#wd-create-entity) to create several items from the `./http_status_code.js` template
 ```sh
 # Assumes that your configration already set instance=https://www.wikidata.org
 wb create-entity ./http_status_code.js 100 'Continue' '6.2.1'

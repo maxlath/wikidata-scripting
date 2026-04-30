@@ -3,7 +3,7 @@ const { getEntities } = require('wikidata-sdk')
 const fetch = require('node-fetch')
 const ecoPattern = /^[A-E]\d{2}(–[A-E]\d{2})?$/
 const headers = {
-  'user-agent': 'wikidata-scripting (https://github.com/maxlath/wikidata-scripting)'
+  'user-agent': 'wikidata-scripting (https://codeberg.org/maxlath/wikidata-scripting)'
 }
 
 module.exports = async id => {

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Using wd create-entity from wikidata-cli
-# See https://github.com/maxlath/wikidata-cli/blob/master/docs/write_operations.md#wd-create-entity
+# See https://codeberg.org/maxlath/wikidata-cli/src/branch/main/docs/write_operations.md#wd-create-entity
 
 wd create-entity ./http_status_code.js 100 'Continue' '6.2.1'
 wd create-entity ./http_status_code.js 101 'Switching Protocols' '6.2.2'

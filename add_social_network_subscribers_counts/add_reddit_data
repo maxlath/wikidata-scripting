@@ -27,7 +27,7 @@ const getAndAddData = entry => {
 
 const headers = {
   // A User-Agent is required
-  'User-Agent': 'wikidata-scripting (https://github.com/maxlath/wikidata-scripting)'
+  'User-Agent': 'wikidata-scripting (https://codeberg.org/maxlath/wikidata-scripting)'
 }
 
 const getSubbredditData = async subreddit => {
